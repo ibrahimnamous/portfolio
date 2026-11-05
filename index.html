@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibrahim NAMOUS - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0b1120;
+            --bg-2: #111a2e;
+            --card: #16213a;
+            --border: #24314f;
+            --text: #e6ebf5;
+            --muted: #9aa7c2;
+            --accent: #38bdf8;
+            --accent-2: #818cf8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body.no-scroll { overflow: hidden; }
+        a { color: inherit; text-decoration: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+        .section-sub { color: var(--muted); margin-bottom: 40px; max-width: 650px; }
+        .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        /* Navigation */
+        nav { position: sticky; top: 0; z-index: 50; background: rgba(11, 17, 32, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .logo { font-weight: 800; font-size: 1.2rem; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a { color: var(--muted); font-weight: 500; font-size: 0.95rem; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+        .menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
+
+        /* Accueil */
+        .hero { padding: 90px 0 70px; }
+        .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px; align-items: center; }
+        .badge { display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; line-height: 1.1; font-weight: 800; margin-bottom: 20px; }
+        .hero p { color: var(--muted); font-size: 1.1rem; margin-bottom: 30px; }
+        .btns { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn { padding: 12px 22px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; transition: transform .2s, box-shadow .2s; }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #0b1120; box-shadow: 0 8px 24px rgba(56,189,248,.25); }
+        .btn-ghost { border: 1px solid var(--border); color: var(--text); }
+        .btn-ghost:hover { border-color: var(--accent); }
+        .stat-card { margin-top: 30px; display: inline-flex; gap: 14px; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; }
+        .stat-card .emoji { font-size: 1.8rem; }
+        .stat-card strong { display: block; }
+        .stat-card small { color: var(--muted); }
+        .hero-photo { position: relative; text-align: center; }
+        .hero-photo img { width: 100%; max-width: 340px; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 4px solid var(--border); box-shadow: 0 0 0 10px rgba(56,189,248,.08), 0 20px 60px rgba(0,0,0,.4); }
+        .hero-photo .tag { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: 0.85rem; white-space: nowrap; }
+
+        /* Technos */
+        .stack { padding: 30px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
+        .stack-list { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .chip { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: 0.9rem; font-weight: 500; }
+
+        /* À propos */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .about-text p { color: var(--muted); margin-bottom: 16px; }
+        .about-text strong { color: var(--text); }
+        .code { background: #0a0f1c; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+        .code-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--card); border-bottom: 1px solid var(--border); color: var(--muted); }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .code pre { padding: 18px; overflow-x: auto; line-height: 1.7; }
+        .kw { color: #c792ea; } .str { color: #c3e88d; } .cm { color: #637394; }
+        .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color .2s, transform .2s; }
+        .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+        .card h3 { margin-bottom: 8px; }
+        .card p { color: var(--muted); font-size: 0.95rem; }
+
+        /* Parcours */
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+        .t-item { position: relative; margin-bottom: 30px; }
+        .t-item::before { content: ''; position: absolute; left: -29px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+        .t-date { color: var(--accent); font-size: 0.85rem; font-weight: 600; }
+        .t-item h3 { font-size: 1.1rem; margin: 2px 0; }
+        .t-place { color: var(--muted); font-size: 0.9rem; margin-bottom: 6px; }
+        .t-item p { color: var(--muted); font-size: 0.95rem; }
+
+        /* Compétences */
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .skill-card ul { list-style: none; margin-top: 10px; }
+        .skill-card li { color: var(--muted); padding: 4px 0; font-size: 0.95rem; }
+        .skill-card li i { color: var(--accent); margin-right: 8px; width: 16px; }
+
+        /* Cartes projets */
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .project { display: flex; flex-direction: column; padding: 0; overflow: hidden; cursor: pointer; }
+        .project-img { height: 130px; display: flex; align-items: center; justify-content: center; font-size: 3rem; background: linear-gradient(135deg, rgba(56,189,248,.15), rgba(129,140,248,.15)); border-bottom: 1px solid var(--border); position: relative; }
+        .project-code { position: absolute; top: 12px; left: 14px; font-size: 0.75rem; font-weight: 700; color: var(--accent); background: rgba(11,17,32,.7); padding: 3px 10px; border-radius: 999px; }
+        .project-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+        .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+        .tag-s { font-size: 0.75rem; padding: 3px 10px; border-radius: 999px; background: rgba(129,140,248,.15); color: var(--accent-2); font-weight: 600; }
+        .project h3 { font-size: 1.05rem; margin-bottom: 8px; }
+        .project p { flex: 1; margin-bottom: 14px; }
+        .project-link { color: var(--accent); font-weight: 600; font-size: 0.9rem; background: none; border: none; text-align: left; cursor: pointer; font-family: inherit; padding: 0; }
+
+        /* Fenêtre détaillée d'une SAÉ */
+        .modal { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(3, 6, 14, 0.8); backdrop-filter: blur(4px); overflow-y: auto; padding: 40px 16px; }
+        .modal.open { display: block; }
+        .modal-box { max-width: 900px; margin: 0 auto; background: var(--bg-2); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+        .modal-head { padding: 30px 30px 24px; background: linear-gradient(135deg, rgba(56,189,248,.18), rgba(129,140,248,.18)); border-bottom: 1px solid var(--border); position: relative; }
+        .modal-head h2 { font-size: 1.7rem; line-height: 1.2; margin: 8px 40px 10px 0; }
+        .modal-close { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 1.1rem; cursor: pointer; }
+        .modal-close:hover { border-color: var(--accent); }
+        .modal-body { padding: 10px 30px 30px; }
+        .modal-body h3 { font-size: 1.25rem; margin: 30px 0 12px; padding: 10px 14px; background: rgba(56,189,248,.1); border-left: 3px solid var(--accent); border-radius: 6px; }
+        .modal-body h4 { font-size: 1.02rem; margin: 26px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+        .modal-body h5 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); margin: 16px 0 8px; }
+        .modal-body p { color: var(--muted); margin-bottom: 12px; }
+        .modal-body code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; color: #f0abfc; background: rgba(240,171,252,.1); padding: 1px 6px; border-radius: 4px; }
+        .trace-code { background: #0a0f1c; border: 1px solid var(--border); border-radius: 10px; padding: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #d6deeb; margin-bottom: 12px; white-space: pre; }
+        .trace-out { background: #111827; border: 1px dashed var(--border); border-radius: 10px; padding: 14px 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.5; color: #a5b4cf; margin-bottom: 12px; white-space: pre; }
+        .trace-img { display: block; max-width: 100%; border-radius: 10px; border: 1px solid var(--border); background: #fff; margin-bottom: 12px; }
+        .table-wrap { overflow-x: auto; margin-bottom: 12px; }
+        .grille, .trace-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        .grille th, .grille td, .trace-table th, .trace-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+        .grille th, .trace-table th { background: var(--card); font-weight: 600; }
+        .grille td { color: var(--muted); }
+        .grille td.lvl, .grille th.lvl { text-align: center; width: 90px; }
+        .grille td.x { color: var(--accent); font-weight: 800; }
+        .trace-table td { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+        .toc { background: #fff; color: #111; border-radius: 10px; padding: 24px 30px; font-family: Calibri, 'Segoe UI', sans-serif; margin-bottom: 12px; }
+        .toc h6 { font-size: 1.3rem; font-weight: 400; text-align: center; margin-bottom: 14px; }
+        .toc ol { list-style: upper-roman; padding-left: 40px; font-size: 1.05rem; line-height: 2; }
+        .doc { background: #fff; color: #111; border-radius: 10px; padding: 22px 30px; font-family: Calibri, 'Segoe UI', sans-serif; font-size: 0.9rem; line-height: 1.55; margin-bottom: 12px; }
+        .doc p { color: #111; margin-bottom: 10px; }
+        .doc .doc-title { text-align: center; font-weight: 700; text-decoration: underline; font-size: 1rem; margin-bottom: 14px; }
+        .slide { background: #f1f1f5; color: #111; border-radius: 10px; padding: 34px 40px; margin-bottom: 12px; }
+        .slide h6 { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; margin-bottom: 18px; }
+        .slide .sub { color: #333; margin-bottom: 14px; }
+        .slide table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.92rem; }
+        .slide td { padding: 10px 14px; color: #333; }
+        .slide tr:nth-child(even) td { background: #e4e4ea; }
+        .slide tr:first-child td { background: #f7f7fa; }
+        .slide p { color: #333; margin: 0; }
+
+        /* Contact */
+        .contact { text-align: center; }
+        .contact .btns { justify-content: center; }
+        footer { border-top: 1px solid var(--border); padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+        .socials { display: flex; justify-content: center; gap: 18px; margin-bottom: 12px; font-size: 1.3rem; }
+        .socials a:hover { color: var(--accent); }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 860px) {
+            .hero-grid, .about-grid, .cards-2 { grid-template-columns: 1fr; }
+            .hero-photo { order: -1; }
+            .hero-photo img { max-width: 220px; }
+            .hero h1 { font-size: 2.2rem; }
+            .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+            .menu-btn { display: block; }
+            .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--bg-2); border-bottom: 1px solid var(--border); }
+            .nav-links.open { display: flex; }
+            .nav-links a { display: block; padding: 14px 20px; }
+            section { padding: 60px 0; }
+            .modal { padding: 0; }
+            .modal-box { border-radius: 0; }
+            .modal-head, .modal-body { padding-left: 18px; padding-right: 18px; }
+            .modal-head h2 { font-size: 1.35rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="#accueil" class="logo">Ibrahim N<span>.</span></a>
+            <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#parcours">Mon Parcours</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#contact">Me contacter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ACCUEIL -->
+    <header class="hero" id="accueil">
+        <div class="container hero-grid">
+            <div class="reveal">
+                <span class="badge">🎓 Étudiant en BUT Science des Données</span>
+                <h1>Transformer les données en <span class="grad">décisions utiles.</span></h1>
+                <p>Étudiant en 2e année de BUT Science des Données (parcours VCOD) à l'IUT de Metz, je recherche un <strong>stage de 8 à 10 semaines</strong> dans la data ou l'intelligence artificielle.</p>
+                <div class="btns">
+                    <a href="#projets" class="btn btn-primary">Découvrir mes projets →</a>
+                    <a href="cv.pdf" target="_blank" class="btn btn-ghost"><i class="fa-solid fa-download"></i> Télécharger mon CV</a>
+                </div>
+                <div class="stat-card">
+                    <span class="emoji">📊</span>
+                    <div>
+                        <strong>7 projets Data (SAÉ) réalisés</strong>
+                        <small>SQL · VBA · R · Excel · Statistiques · Enquête</small>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-photo reveal">
+                <img src="photo.jpg" alt="Photo d'Ibrahim Namous">
+                <span class="tag">📍 Metz, France</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- TECHNOS -->
+    <div class="stack">
+        <div class="container stack-list">
+            <span class="chip">🐍 Python</span>
+            <span class="chip">📈 R</span>
+            <span class="chip">🗄️ SQL</span>
+            <span class="chip">📊 Power BI</span>
+            <span class="chip">📉 Tableau</span>
+            <span class="chip">📗 Excel</span>
+            <span class="chip">⚙️ VBA</span>
+            <span class="chip">🤖 IA</span>
+        </div>
+    </div>
+
+    <!-- À PROPOS -->
+    <section id="apropos">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <h2 class="section-title">Qui suis-je ?</h2>
+                    <p>Je suis <strong>Ibrahim Namous</strong>, étudiant en <strong>BUT Science des Données</strong> à l'IUT de Metz. Ma formation couvre l'ensemble de la chaîne de la donnée : <strong>collecte, nettoyage, analyse statistique, visualisation et reporting</strong>.</p>
+                    <p>Ce portfolio présente mes <strong>projets d'études (SAÉ)</strong> et les <strong>apprentissages critiques (AC)</strong> que j'y ai développés. Curieux et ouvert, je m'intéresse particulièrement à l'<strong>intelligence artificielle</strong> et à ses applications dans la data.</p>
+                </div>
+                <div class="code reveal">
+                    <div class="code-head">
+                        <span class="dot" style="background:#ff5f56"></span>
+                        <span class="dot" style="background:#ffbd2e"></span>
+                        <span class="dot" style="background:#27c93f"></span>
+                        <span style="margin-left:8px">profil.sql</span>
+                    </div>
+<pre><span class="cm">-- Recherche du stagiaire idéal</span>
+<span class="kw">SELECT</span> prenom, nom, formation
+<span class="kw">FROM</span> etudiants
+<span class="kw">WHERE</span> formation = <span class="str">'BUT SD - VCOD'</span>
+  <span class="kw">AND</span> competences <span class="kw">IN</span> (<span class="str">'Python'</span>, <span class="str">'SQL'</span>,
+                      <span class="str">'R'</span>, <span class="str">'Power BI'</span>)
+  <span class="kw">AND</span> motivation = <span class="str">'maximale'</span>;
+
+<span class="cm">-- 1 ligne retournée :</span>
+<span class="cm">-- Ibrahim | NAMOUS | BUT SD - VCOD</span></pre>
+                </div>
+            </div>
+
+            <h3 class="reveal" style="margin-top:50px; font-size:1.4rem;">Un profil technique et humain</h3>
+            <div class="cards-2">
+                <div class="card reveal">
+                    <div class="icon">🤝</div>
+                    <h3>Engagement associatif</h3>
+                    <p>Participant actif de la MAJ (Morlaix Animation Jeunesse) : préparation de trois voyages, autofinancement par la vente de calendriers et tenue de stands de restauration.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="icon">🥊</div>
+                    <h3>Discipline &amp; persévérance</h3>
+                    <p>Pratiquant de boxe thaïlandaise : un sport qui m'apprend la rigueur, la maîtrise de soi et le dépassement personnel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section id="parcours" style="background: var(--bg-2);">
+        <div class="container">
+            <h2 class="section-title reveal">Mon <span class="grad">Parcours</span></h2>
+            <p class="section-sub reveal">Formation et expériences professionnelles.</p>
+            <div class="timeline">
+                <div class="t-item reveal">
+                    <span class="t-date">Sept 2025 – Présent</span>
+                    <h3>BUT Science des Données – Parcours VCOD</h3>
+                    <div class="t-place">IUT de Metz – Université de Lorraine</div>
+                    <p>Statistiques, programmation (Python, R, SQL, VBA), datavisualisation (Power BI, Tableau) et aide à la décision.</p>
+                </div>
+                <div class="t-item reveal">
+                    <span class="t-date">Juillet 2026</span>
+                    <h3>Agent de propreté – Job d'été</h3>
+                    <div class="t-place">Mairie de Morlaix</div>
+                    <p>Entretien de la voirie et gestion des déchets, travail en équipe au service de la collectivité.</p>
+                </div>
+                <div class="t-item reveal">
+                    <span class="t-date">Février 2026 – Juillet 2026</span>
+                    <h3>Garde d'enfants</h3>
+                    <div class="t-place">Kinougarde – Metz</div>
+                    <p>Formation interne « Petite Enfance » validée. Accompagnement des enfants en parallèle de mes études.</p>
+                </div>
+                <div class="t-item reveal">
+                    <span class="t-date">Juin 2025</span>
+                    <h3>Baccalauréat général – Spécialités NSI et AMC</h3>
+                    <div class="t-place">Lycée Tristan Corbière, Morlaix</div>
+                    <p>Mention Assez Bien. Section européenne anglais (test de Cambridge, niveau B2).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section id="competences">
+        <div class="container">
+            <h2 class="section-title reveal">Mes <span class="grad">Compétences</span></h2>
+            <p class="section-sub reveal">Les outils et savoir-faire acquis au cours de ma formation.</p>
+            <div class="skills-grid">
+                <div class="card skill-card reveal">
+                    <div class="icon">💻</div>
+                    <h3>Programmation</h3>
+                    <ul>
+                        <li><i class="fa-brands fa-python"></i>Python</li>
+                        <li><i class="fa-solid fa-chart-line"></i>R</li>
+                        <li><i class="fa-solid fa-database"></i>SQL</li>
+                        <li><i class="fa-solid fa-gears"></i>VBA</li>
+                    </ul>
+                </div>
+                <div class="card skill-card reveal">
+                    <div class="icon">📊</div>
+                    <h3>Analyse &amp; Visualisation</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-chart-pie"></i>Power BI</li>
+                        <li><i class="fa-solid fa-chart-column"></i>Tableau</li>
+                        <li><i class="fa-solid fa-table"></i>Excel</li>
+                        <li><i class="fa-solid fa-calculator"></i>Statistiques appliquées</li>
+                    </ul>
+                </div>
+                <div class="card skill-card reveal">
+                    <div class="icon">🌍</div>
+                    <h3>Savoir-être &amp; Langues</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-language"></i>Anglais B2 (Cambridge)</li>
+                        <li><i class="fa-solid fa-users"></i>Travail d'équipe</li>
+                        <li><i class="fa-solid fa-list-check"></i>Organisation</li>
+                        <li><i class="fa-solid fa-car"></i>Permis B</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section id="projets" style="background: var(--bg-2);">
+        <div class="container">
+            <h2 class="section-title reveal">Mes <span class="grad">Projets</span></h2>
+            <p class="section-sub reveal">Mes 7 SAÉ (Situations d'Apprentissage et d'Évaluation). Cliquez sur un projet pour voir la démarche, les traces d'apprentissage et mon bilan.</p>
+            <div class="projects-grid">
+
+                <div class="card project reveal" data-open="sae101">
+                    <div class="project-img"><span class="project-code">SAÉ 1.01</span>🗄️</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">SQL</span><span class="tag-s">Excel</span><span class="tag-s">Reporting</span></div>
+                        <h3>Création de reporting</h3>
+                        <p>Requêtes SQL avec jointures multiples sur la base SIRENE (+5 Go) pour produire un rapport qualité et un tableau de bord du tissu entrepreneurial français.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+                <div class="card project reveal" data-open="sae102">
+                    <div class="project-img"><span class="project-code">SAÉ 1.02</span>⚙️</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">VBA</span><span class="tag-s">Algorithmique</span></div>
+                        <h3>Lecture / Écriture de fichiers</h3>
+                        <p>Programme VBA calculant une matrice de distances de Jaccard entre étudiants, avec distance de Levenshtein et tests unitaires.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+                <div class="card project reveal" data-open="sae103">
+                    <div class="project-img"><span class="project-code">SAÉ 1.03</span>📊</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">Statistiques</span><span class="tag-s">Tableur</span></div>
+                        <h3>Analyse exploratoire de données</h3>
+                        <p>Préparation et analyse de données réelles d'accidents de la route : tableaux de fréquence, tableaux croisés et graphiques.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+                <div class="card project reveal" data-open="sae104">
+                    <div class="project-img"><span class="project-code">SAÉ 1.04</span>💼</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">Excel</span><span class="tag-s">RFM</span><span class="tag-s">Pareto</span></div>
+                        <h3>Production de données d'entreprise</h3>
+                        <p>Segmentation de 35 clients par scoring RFM, analyse de Pareto et méthode ABC pour aider à la prise de décision commerciale.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+                <div class="card project reveal" data-open="sae105">
+                    <div class="project-img"><span class="project-code">SAÉ 1.05</span>🎤</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">Anglais</span><span class="tag-s">Restitution</span></div>
+                        <h3>Présentation en anglais d'un territoire</h3>
+                        <p>Analyse économique du Zénith de Nantes Métropole, présentée entièrement en anglais et sans notes devant la classe.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+                <div class="card project reveal" data-open="sae106">
+                    <div class="project-img"><span class="project-code">SAÉ 1.06</span>📝</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">Enquête</span><span class="tag-s">Questionnaire</span></div>
+                        <h3>Mise en œuvre d'une enquête</h3>
+                        <p>Enquête sur la pression sociale autour de l'esthétique corporelle : questionnaire, collecte par QR code, rapport et restitution orale.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+                <div class="card project reveal" data-open="sae203">
+                    <div class="project-img"><span class="project-code">SAÉ 2.03</span>📈</div>
+                    <div class="project-body">
+                        <div class="tags"><span class="tag-s">R</span><span class="tag-s">ggplot2</span><span class="tag-s">Régression</span></div>
+                        <h3>Régression sur données réelles</h3>
+                        <p>Modélisation de la masse des viscères en fonction des dimensions de 95 spécimens : détection d'anomalies, régression linéaire et logarithmique.</p>
+                        <button class="project-link">Voir le projet →</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SAÉ 1.01 ===================== -->
+    <div class="modal" id="sae101">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 1.01</span>
+                <h2>Création de reporting</h2>
+                <div class="tags"><span class="tag-s">SQL</span><span class="tag-s">Excel</span><span class="tag-s">Reporting</span><span class="tag-s">Binôme</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a mis face à une situation concrète : un cahier des charges à respecter, une base de données réelle avec ses imperfections, et des livrables à rendre dans des délais stricts. J'ai compris que produire un reporting ne se résume pas à extraire des chiffres, il faut comprendre ce que le client attend, maîtriser les outils, et savoir documenter ce qu'on fait.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC11.01 | Correctement interpréter et prendre en compte le besoin du commanditaire ou du client</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.02 | Respecter les formalismes de notation</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.03 | Connaître la syntaxe des langages et savoir l'utiliser</td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.04 | Mesurer l'importance de maîtriser la structure des données à exploiter</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC11.01 | Correctement interpréter et prendre en compte le besoin du commanditaire ou du client</h4>
+                <p>Le cahier des charges nous précisait exactement quoi produire : un rapport qualité de la base, puis un tableau de bord du tissu entrepreneurial français. J'ai appris à lire ce type de document attentivement avant de commencer à coder, pour ne pas partir dans une mauvaise direction. Comprendre ce qu'on nous demande avant d'agir, c'est quelque chose que j'avais tendance à négliger.</p>
+                <h5>Trace d'apprentissage</h5>
+                <div class="table-wrap"><table class="trace-table">
+                    <tr><th>Attributs / Tables</th><th>Jointure possible pour CJ_NIV1</th><th>Jointure possible pour CJ_NIV2</th><th>Jointure possible pour CJ_NIV3</th></tr>
+                    <tr><td>CJ_NIV1</td><td>NULL</td><td>oui CJ_NIV1</td><td>non</td></tr>
+                    <tr><td>CJ_NIV2</td><td>oui CJ_NIV1</td><td>NULL</td><td>oui CJ_NIV2</td></tr>
+                    <tr><td>CJ_NIV3</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>NAF_niveau1</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>NAF_niveau2</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>NAF_niveau3</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>NAF_niveau4</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>NAF_niveau5</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>entreprises</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>etablissements</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>geo_communes</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>geo_departements</td><td>non</td><td>non</td><td>non</td></tr>
+                    <tr><td>geo_regions</td><td>non</td><td>non</td><td>non</td></tr>
+                </table></div>
+
+                <h4>AC11.02 | Respecter les formalismes de notation</h4>
+                <p>Les livrables imposaient des contraintes précises de présentation : page de garde, entêtes, table des matières, style spécifique pour les inserts de code. Au début ça m'a semblé secondaire, mais j'ai vite réalisé que le formalisme fait partie du rendu professionnel. Un document mal présenté, même s'il est techniquement correct, ne sera pas pris au sérieux.</p>
+                <h5>Trace d'apprentissage</h5>
+                <div class="toc">
+                    <h6>Tables des matières</h6>
+                    <ol>
+                        <li>Introduction</li>
+                        <li>Partie 1 : Les données depuis la base</li>
+                        <li>Partie 2 : tableaux de ségmentation</li>
+                        <li>Partie 3 : creation du fichier excel</li>
+                        <li>Conclusion</li>
+                    </ol>
+                </div>
+
+                <h4>AC11.03 | Connaître la syntaxe des langages et savoir l'utiliser</h4>
+                <p>C'est sur cet AC que j'ai le plus progressé concrètement. J'ai écrit mes premières vraies requêtes SQL sur une base de données volumineuse (plus de 5 Go) avec des jointures entre plusieurs tables. La base SIRENE n'était pas simple : des valeurs nulles, des établissements archivés, des tables de référence imbriquées sur plusieurs niveaux. Chaque requête demandait de réfléchir à la logique avant d'écrire la moindre ligne.</p>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">SELECT
+    YEAR(dateCreationUniteLegale),
+    COUNT(YEAR(dateCreationUniteLegale))
+FROM entreprises
+WHERE YEAR(dateCreationUniteLegale) BETWEEN '1975' AND '2020'
+GROUP BY YEAR(dateCreationUniteLegale);</pre>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">SELECT
+    libelle_cj_niv3,
+    libelle_cj_niv2,
+    libelle_cj_niv1,
+    COUNT(*) AS nombre
+FROM entreprises, CJ_NIV1, CJ_NIV2, CJ_NIV3
+WHERE categorieJuridiqueUniteLegale = CJ_NIV3.CJ_NIV3
+  AND CJ_NIV3.CJ_NIV2 = CJ_NIV2.CJ_NIV2
+  AND CJ_NIV2.CJ_NIV1 = CJ_NIV1.CJ_NIV1
+  AND categorieEntreprise = 'PME'
+GROUP BY libelle_cj_niv1, libelle_cj_niv2, libelle_cj_niv3
+ORDER BY nombre DESC;</pre>
+
+                <h4>AC11.04 | Mesurer l'importance de maîtriser la structure des données à exploiter</h4>
+                <p>Avant même d'interroger la base, il fallait comprendre comment elle était construite : la différence entre une unité légale et un établissement, comment les tables NAF et CJ s'articulent sur plusieurs niveaux, ce que représente un SIRET par rapport à un SIREN. Sans cette compréhension, les requêtes n'auraient eu aucun sens.</p>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">FROM etablissements
+JOIN geo_communes ON etablissements.codeCommuneEtablissement =
+geo_communes."COM"
+JOIN geo_departements ON geo_communes."DEP" =
+geo_departements."DEP"
+GROUP BY geo_departements."LIBELLE_DEPARTEMENT", codeNAF_niveau2,
+libelleNAF_niveau2
+ORDER BY nbUnitesLegales DESC;</pre>
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ a été une première vraie confrontation avec une base de données professionnelle. Le fait de travailler sur des données réelles, avec de vraies imperfections et un vrai cahier des charges, a rendu l'exercice bien plus parlant qu'un simple TP guidé. Ce que je retiens surtout, c'est que la compréhension de la structure des données est la base de tout : sans ça, on ne peut ni écrire les bonnes requêtes, ni produire un reporting fiable.</p>
+                <h4>Mes commentaires sur le travail en équipe</h4>
+                <p>La SAÉ s'est faite en binôme imposé. Nous avons dû nous organiser pour respecter deux dates de remise distinctes avec un délai serré. Cette contrainte nous a forcés à nous répartir les tâches clairement dès le départ et à ne pas repousser les décisions à la dernière minute.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>Je veux être capable d'écrire des requêtes SQL avec des jointures multiples sans avoir besoin de relire le schéma à chaque fois. L'objectif concret : sur la prochaine SAÉ impliquant une base de données, comprendre le schéma relationnel en moins de 30 minutes et être opérationnel directement, sans rester bloqué sur la structure.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SAÉ 1.02 ===================== -->
+    <div class="modal" id="sae102">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 1.02</span>
+                <h2>Lecture / Écriture de fichiers</h2>
+                <div class="tags"><span class="tag-s">VBA</span><span class="tag-s">Excel</span><span class="tag-s">Algorithmique</span><span class="tag-s">Équipe de 4</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a mis face à quelque chose de nouveau : écrire un vrai programme pour traiter des données, pas juste remplir des cellules à la main. Il a fallu décomposer le problème en petites fonctions, les tester une par une, et comprendre que la machine exécute exactement ce qu'on lui dit.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC11.01 | Correctement interpréter et prendre en compte le besoin du commanditaire ou du client</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                    <tr><td>AC11.02 | Respecter les formalismes de notation</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.03 | Connaître la syntaxe des langages et savoir l'utiliser</td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.04 | Mesurer l'importance de maîtriser la structure des données à exploiter</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.05 | Comprendre les structures algorithmiques de base et leur contexte d'usage</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC11.06 | Prendre conscience de l'intérêt de la programmation</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC11.01 | Correctement interpréter et prendre en compte le besoin du commanditaire ou du client</h4>
+                <p>Le sujet était précis : à partir d'un classeur contenant les réponses des étudiants au jeu de la semaine d'intégration, produire une matrice de distances de Jaccard entre tous les étudiants. J'ai appris à lire un cahier des charges technique et à ne pas me lancer dans le code avant d'avoir bien compris ce qui était attendu en sortie, le format exact du classeur résultat, la structure de la matrice, les noms des feuilles.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae102-jeu.png" alt="Feuille Jeu : réponses des étudiants" loading="lazy">
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae102-jaccard.png" alt="Feuille Jaccard : matrice des distances" loading="lazy">
+
+                <h4>AC11.02 | Respecter les formalismes de notation</h4>
+                <p>Le projet imposait une organisation en trois modules distincts (ModulePrincipal, ModuleUtile, ModuleTestUnitaire) avec des conventions de nommage précises, notamment le préfixe <code>ref</code> pour les variables références et le préfixe <code>Tester</code> pour les macros de test. Respecter ces formalismes m'a appris qu'un code lisible et bien organisé n'est pas un luxe, c'est une exigence professionnelle.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae102-modules-vba.png" alt="Les trois modules VBA" loading="lazy">
+
+                <h4>AC11.03 | Connaître la syntaxe des langages et savoir l'utiliser</h4>
+                <p>J'ai réellement découvert le VBA dans ce projet. Apprendre à manipuler des objets Excel via du code (Workbook, Worksheet, Range), à utiliser <code>Set</code> et <code>Is</code> pour les variables références, à parcourir des plages avec <code>For Each</code> ou encore à utiliser <code>Find</code> pour chercher une valeur dans une colonne. La syntaxe du VBA est particulière et demande de la rigueur.</p>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">Public Sub TesterCalculerLongueurColonne()
+
+    With ThisWorkbook.Worksheets(1)   ' on met en "facteur"  ThisWorkbook.Worksheets(1)
+        .Range("B1:B5") = "valeur"    ' on remplit la colonne de ThisWorkbook.Worksheets(1)
+        Debug.Print ModuleUtile.CalculerLongueurColonne(.Columns("B"))
+    End With
+End Sub</pre>
+
+                <h4>AC11.04 | Mesurer l'importance de maîtriser la structure des données à exploiter</h4>
+                <p>Avant de pouvoir calculer quoi que ce soit, il fallait comprendre la structure du classeur d'entrée : chaque colonne correspond à un étudiant identifié par son numéro, chaque cellule contient une paire THEME:mot. Comprendre ce format et savoir l'extraire avec <code>ExtraireGaucheDeuxPoint</code> et <code>ExtraireDroiteDeuxPoint</code> était la condition pour que tout le reste fonctionne.</p>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">'*****************************************************************************
+Public Function ExtraireDroiteDeuxPoint(ByVal chaine As String) As String
+
+End Function
+
+'*****************************************************************************
+' Cette fonction retourne la sous-chaine avant le caractère ":"
+'
+' entrée chaine: la chaine à partir de laquelle on extrait
+' retour: la sous-chaine à gauche
+'*****************************************************************************
+Public Function ExtraireGaucheDeuxPoint(ByVal chaine As String) As String
+
+End Function</pre>
+
+                <h4>AC11.05 | Comprendre les structures algorithmiques de base et leur contexte d'usage</h4>
+                <p>Le calcul de la distance de Jaccard repose sur des structures algorithmiques concrètes : des boucles imbriquées pour comparer tous les couples d'étudiants, des conditions pour tester l'appartenance à un ensemble, et une logique de comptage pour l'intersection et l'union. Implémenter la distance de Levenshtein avec un seuil d'arrêt prématuré m'a aussi appris l'importance de l'optimisation dans un algorithme.</p>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">If car1 = car2 Then
+    distance(i, j) = distance(i - 1, j - 1)
+Else
+    min1 = distance(i - 1, j) + 1
+    min2 = distance(i, j - 1) + 1
+    min3 = distance(i - 1, j - 1) + 1
+
+    If min1 &lt; min2 Then
+        If min1 &lt; min3 Then
+            distance(i, j) = min1
+        Else
+            distance(i, j) = min3
+        End If
+    Else
+        If min2 &lt; min3 Then
+            distance(i, j) = min2
+        Else
+            distance(i, j) = min3
+        End If
+    End If
+End If</pre>
+
+                <h4>AC11.06 | Prendre conscience de l'intérêt de la programmation</h4>
+                <p>C'est l'AC sur lequel j'ai eu la révélation la plus nette. Ce projet aurait été impossible à faire à la main : comparer des centaines de paires d'étudiants, calculer des distances sur des mots avec fautes d'orthographe potentielles, remplir une matrice symétrique. En quelques secondes, le programme fait ce qui prendrait des heures manuellement. J'ai vraiment compris pourquoi on programme.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae102-matrice.png" alt="Matrice de distances complète" loading="lazy">
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ a été la plus exigeante techniquement de ce semestre. Partir de zéro en VBA pour arriver à un programme fonctionnel capable de calculer des distances entre étudiants à partir de données textuelles réelles, c'est un écart que je n'aurais pas pensé franchir aussi vite. Ce que je retiens surtout, c'est la logique de décomposition : diviser un problème complexe en fonctions simples, tester chacune avant d'assembler, ne jamais avancer à l'aveugle.</p>
+                <h4>Mes commentaires sur le travail en équipe</h4>
+                <p>La SAÉ s'est faite à quatre. Nous avons réparti les fonctions entre nous en commençant par les plus simples (extraction gauche/droite du deux-points, longueur de ligne/colonne) avant de s'attaquer aux fonctions de distance. Cette progression par étapes nous a évité de nous retrouver bloqués sur un bug difficile à isoler.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>La gestion des erreurs en VBA (On Error Resume Next, On Error GoTo 0) reste quelque chose que j'ai appliqué sans vraiment maîtriser. Au semestre 2, quand on abordera d'autres langages de programmation, je veux comprendre ce mécanisme en profondeur pour ne plus juste copier un pattern sans savoir ce qu'il fait réellement.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SAÉ 1.03 ===================== -->
+    <div class="modal" id="sae103">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 1.03</span>
+                <h2>Analyse Exploratoire de Données</h2>
+                <div class="tags"><span class="tag-s">Statistiques</span><span class="tag-s">Tableur</span><span class="tag-s">Datavisualisation</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a surtout appris qu'on ne peut pas foncer tête baissée dans une analyse. Avant de toucher aux chiffres, il faut comprendre d'où viennent les données, ce qu'elles valent, et dans quel état elles se trouvent. C'est une leçon que je retiendrai : une bonne analyse commence bien avant le calcul.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC12.01 - Réaliser que les sources de données ont des caractéristiques propres à considérer (variation, précision, mise à jour...)</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                    <tr><td>AC12.02 - Comprendre qu'une analyse correcte ne peut émaner que de données propres et préparées</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                    <tr><td>AC12.03 - Comprendre l'intérêt des synthèses numériques et graphiques pour décrire une variable statistique</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC12.04 - Comprendre l'intérêt des synthèses numériques et graphiques pour mettre en évidence des liaisons entre variables.</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC12.01 | Réaliser que les sources de données ont des caractéristiques propres à considérer (variation, précision, mise à jour...)</h4>
+                <p>Au cours de cette SAÉ, j'ai pris conscience que les données ne sont jamais neutres : elles ont une date de mise à jour, une marge d'erreur, des biais liés à leur mode de collecte. Avant de me lancer dans l'analyse, j'ai appris à poser les bonnes questions sur l'origine du jeu de données pour éviter de tirer des conclusions fausses.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae103-vehicules.png" alt="Extrait du fichier véhicules" loading="lazy">
+
+                <h4>AC12.02 | Comprendre qu'une analyse correcte ne peut émaner que de données propres et préparées</h4>
+                <p>J'ai compris que la phase de préparation n'est pas une formalité : c'est elle qui conditionne la validité de tout ce qui suit. Des données mal triées ou incomplètes produisent des résultats trompeurs, peu importe la qualité de l'analyse ensuite.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae103-entetes.png" alt="Variables retenues après préparation" loading="lazy">
+
+                <h4>AC12.03 | Comprendre l'intérêt des synthèses numériques et graphiques pour décrire une variable statistique</h4>
+                <p>J'ai utilisé des tableaux de fréquence et des graphiques simples pour décrire des variables prises une à une. C'est un premier niveau de lecture que je commence à maîtriser, même si je dois encore gagner en fluidité dans le choix du bon type de représentation selon la nature des données.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae103-manoeuvres.png" alt="Manœuvres principales avant l'accident pour les tracteurs (2005)" loading="lazy">
+
+                <h4>AC12.04 | Comprendre l'intérêt des synthèses numériques et graphiques pour mettre en évidence des liaisons entre variables</h4>
+                <p>J'ai abordé les premières techniques permettant de visualiser les liens entre deux variables. Cette dimension croisant plusieurs informations est celle que j'ai trouvée la plus intéressante, même si elle reste à consolider.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae103-tcd.png" alt="Répartition des tracteurs impliqués dans les accidents en 2005" loading="lazy">
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ a posé les fondations de ma façon d'aborder les données. Ce que je retiens surtout, c'est que rigueur et méthode sont indissociables : on ne peut pas espérer une analyse fiable sans avoir pris le temps de comprendre et de préparer ses données en amont. C'est une logique que j'essaierai d'appliquer dans tous mes futurs travaux.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>Les modèles probabilistes et la fluctuation d'échantillonnage restent des points flous pour moi. Au semestre 2, je veux vraiment comprendre ce qui se passe derrière ces notions plutôt que d'appliquer des formules sans en saisir le sens.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SAÉ 1.04 ===================== -->
+    <div class="modal" id="sae104">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 1.04</span>
+                <h2>Production de données d'entreprise</h2>
+                <div class="tags"><span class="tag-s">Excel</span><span class="tag-s">Scoring RFM</span><span class="tag-s">Pareto</span><span class="tag-s">Méthode ABC</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a confronté à une problématique très concrète du monde professionnel : segmenter une clientèle pour aider à la prise de décision. J'ai compris que les chiffres seuls ne suffisent pas, il faut les mettre en contexte, choisir les bons indicateurs et expliquer clairement comment on est arrivé à ses conclusions.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC13.02 | Identifier l'importance de contextualiser ses données</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                    <tr><td>AC13.03 | Mesurer l'importance de mettre en évidence des résultats clés par l'utilisation d'indicateurs pertinents</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                    <tr><td>AC13.04 | Lors de la restitution des résultats, mesurer l'importance d'expliciter également la démarche suivie</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC13.02 | Identifier l'importance de contextualiser ses données</h4>
+                <p>Avant d'analyser quoi que ce soit, il a fallu comprendre à quoi correspondaient les données : qui sont ces clients, que représentent les colonnes Récence, Fréquence et Montant dans un contexte commercial réel. Replacer les résultats dans ce cadre était indispensable, dire que le client 05 génère le plus de chiffre d'affaires n'a de sens que si on précise ce que ça représente par rapport à l'ensemble de la clientèle. Répondre aux questions suivantes m'a permis de mieux appréhender les résultats que j'ai obtenus.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae104-questions.png" alt="Questions et réponses sur les clients" loading="lazy">
+
+                <h4>AC13.03 | Mesurer l'importance de mettre en évidence des résultats clés par l'utilisation d'indicateurs pertinents</h4>
+                <p>Le scoring RFM m'a appris à construire des indicateurs composites pour classer les clients. Plutôt que de regarder chaque dimension séparément, le score total permet de dégager rapidement les clients les plus précieux. J'ai aussi vérifié si la loi de Pareto s'appliquait : la conclusion, que 20% des clients ne génèrent pas 80% du CA, est en elle-même un résultat clé qui informe les décisions commerciales.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae104-rfm.png" alt="Tableau de scoring RFM" loading="lazy">
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae104-pareto-tableau.png" alt="Tableau de l'analyse de Pareto" loading="lazy" style="max-width:420px">
+
+                <h4>AC13.04 | Lors de la restitution des résultats, mesurer l'importance d'expliciter également la démarche suivie</h4>
+                <p>J'ai pris soin de structurer mon rendu pour que la démarche soit lisible : d'abord les données brutes, ensuite le scoring avec les critères de notation, puis l'analyse Pareto et la méthode ABC avec leurs graphiques. Quelqu'un qui ouvre le fichier peut suivre le raisonnement étape par étape sans avoir besoin d'explications orales supplémentaires.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae104-pareto-graphique.png" alt="Graphique de Pareto" loading="lazy">
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ m'a fait toucher du doigt ce que veut dire "valoriser des données" concrètement. Le scoring RFM est un outil simple mais puissant, et le fait de travailler sur des données clients réalistes a rendu l'exercice parlant. Ce que je retiens surtout, c'est que la façon dont on présente les résultats est aussi importante que les résultats eux-mêmes.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>Au semestre 2, je veux être capable d'appliquer ce type de segmentation sur des données plus complexes sans avoir besoin de revoir les formules de base. L'objectif concret : maîtriser suffisamment le scoring RFM pour pouvoir l'adapter à un nouveau jeu de données et en expliquer les résultats à quelqu'un qui n'a aucune connaissance technique.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SAÉ 1.05 ===================== -->
+    <div class="modal" id="sae105">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 1.05</span>
+                <h2>Présentation en anglais d'un territoire</h2>
+                <div class="tags"><span class="tag-s">Anglais</span><span class="tag-s">Économie de la culture</span><span class="tag-s">Oral</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a confronté à un double défi : tenir un raisonnement analytique rigoureux tout en le restituant dans une langue qui n'est pas ma langue maternelle. Le fond et la forme devaient être à la hauteur.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC13.04 | Lors de la restitution des résultats, mesurer l'importance d'expliciter également la démarche suivie</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC13.06 | Mesurer l'importance d'une expression précise et nuancée dans la communication en français et dans une langue étrangère des résultats</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC13.04 | Lors de la restitution des résultats, mesurer l'importance d'expliciter également la démarche suivie</h4>
+                <p>Nous avons structuré notre présentation de façon à rendre notre raisonnement transparent : d'abord le choix du territoire et les sources mobilisées, ensuite les indicateurs retenus et leur justification, enfin les conclusions et l'hypothèse sur le succès du Zénith. La démarche était lisible du début à la fin.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae105-titre.png" alt="Diapositive de titre : The Zenith of Nantes Métropole" loading="lazy">
+
+                <h4>AC13.06 | Mesurer l'importance d'une expression précise et nuancée dans la communication en français et dans une langue étrangère des résultats</h4>
+                <p>La présentation s'est faite entièrement en anglais, sans notes, devant la classe. J'ai dû m'approprier un vocabulaire technique lié à l'économie de la culture et restituer des analyses complexes de façon claire et convaincante.</p>
+                <h5>Trace d'apprentissage</h5>
+                <div class="slide">
+                    <h6>Key Economic Indicators</h6>
+                    <div class="sub">Zenith of Nantes Performance (2020-2024)</div>
+                    <table>
+                        <tr><td>Indicator</td><td>Annual Value</td></tr>
+                        <tr><td>Annual Attendance</td><td>370 000/450 000 visitors</td></tr>
+                        <tr><td>Occupancy Rate</td><td>83%</td></tr>
+                        <tr><td>Number of Shows</td><td>110 performances</td></tr>
+                    </table>
+                    <p>These figures demonstrate a remarkable performance, particularly in a post-pandemic context. With an 83% occupancy rate, the Zenith ranks among the top-performing venues in France.</p>
+                </div>
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ a été riche parce qu'elle combinait analyse de données réelles, travail en équipe et expression professionnelle en anglais. Le projet du Zénith de Nantes était un sujet concret qui nous a permis de donner du sens à nos apprentissages. Je retiens surtout la satisfaction d'avoir tenu une présentation en anglais sans notes, devant un public, sur un sujet technique.</p>
+                <h4>Mes commentaires sur le travail en équipe</h4>
+                <p>Nous avons fonctionné comme un vrai groupe de travail : répartition claire des rôles, sessions de brainstorming pour vérifier la cohérence de notre analyse, et soutien mutuel à l'oral. Cette organisation a clairement été un facteur de réussite.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>Renforcer mon vocabulaire technique en anglais et continuer à travailler ma fluidité à l'oral. Je voudrais aussi approfondir mes compétences en datavisualisation pour produire des supports encore plus percutants lors des prochaines restitutions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SAÉ 1.06 ===================== -->
+    <div class="modal" id="sae106">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 1.06</span>
+                <h2>Mise en œuvre d'une enquête</h2>
+                <div class="tags"><span class="tag-s">Questionnaire</span><span class="tag-s">Collecte</span><span class="tag-s">Rapport</span><span class="tag-s">Oral</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a montré que produire des résultats ne suffit pas : encore faut-il que ces résultats soient honnêtes, bien contextualisés et accessibles à celui qui les lit. C'est tout un travail de mise en forme et de communication qui accompagne l'analyse.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC13.01 | Prendre connaissance des biais rencontrés dans la mise en place d'une enquête</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC13.02 | Identifier l'importance de contextualiser ses données</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC13.04 | Lors de la restitution des résultats, mesurer l'importance d'expliciter également la démarche suivie</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC13.05 | Comprendre les intérêts de la data visualisation et de l'infographie</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC13.06 | Mesurer l'importance d'une expression précise et nuancée dans la communication en français et dans une langue étrangère des résultats</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC13.01 | Prendre connaissance des biais rencontrés dans la mise en place d'une enquête</h4>
+                <p>En construisant mon questionnaire, j'ai réalisé à quel point la formulation des questions peut influencer les réponses. Une question ambiguë ou orientée fausse directement les résultats, ce qui m'a poussé à relire chaque question avec un œil critique avant de valider le formulaire.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae106-questionnaire.png" alt="Extrait du questionnaire" loading="lazy" style="max-width:560px">
+
+                <h4>AC13.02 | Identifier l'importance de contextualiser ses données</h4>
+                <p>J'ai appris qu'un chiffre sans contexte ne veut rien dire. Préciser à quel groupe s'appliquent mes résultats et dans quelles conditions l'enquête a été menée, c'est ce qui donne du sens aux données collectées.</p>
+                <h5>Trace d'apprentissage</h5>
+                <div class="doc">
+                    <p>Cette étude analyse la manière dont les jeunes perçoivent les standards corporels diffusés sur les réseaux sociaux, ainsi que l'impact psychologique potentiel de ces contenus. Les réponses recueillies montrent que les réseaux sociaux constituent un espace où s'exercent des comparaisons fréquentes, souvent alimentées par la diffusion d'images retouchées ou mettant en avant des corps considérés comme « idéaux ».</p>
+                    <p>Les données permettent d'établir des tendances fiables concernant le profil général des répondants, leur usage des plateformes numériques, la façon dont ils vivent l'exposition aux standards corporels, ainsi que leurs attentes concernant les actions pouvant réduire cette pression esthétique. Cette analyse approfondit donc le lien entre exposition aux réseaux sociaux, perception de soi, genre, émotions ressenties et solutions envisagées.</p>
+                </div>
+
+                <h4>AC13.04 | Lors de la restitution des résultats, mesurer l'importance d'expliciter également la démarche suivie</h4>
+                <p>J'ai pris soin d'expliquer ma méthode : comment j'ai construit l'enquête, auprès de qui, avec quels outils. La transparence sur la démarche est aussi importante que les résultats eux-mêmes.</p>
+                <h5>Trace d'apprentissage</h5>
+                <div class="doc">
+                    <div class="doc-title">Questionnaire sur la pression sociale autour de l'esthétique corporelle</div>
+                    <p>Pour obtenir les résultats de ce questionnaire, j'ai mis en place une organisation permettant de faciliter l'accès et d'encourager une participation libre. J'ai choisi de diffuser le questionnaire principalement en fin de matinée et en fin d'après-midi, des moments où les personnes étaient généralement plus disponibles et moins pressées. Afin de rendre la démarche encore plus simple, j'ai créé un QR code permettant d'accéder directement au questionnaire. Cette solution offrait aux participants la possibilité de répondre de leur côté, à leur rythme, sans ressentir la moindre pression. Mon approche consistait donc à présenter brièvement l'objectif du questionnaire, puis à laisser chacun libre de le remplir quand il le souhaitait, grâce au QR code.<br>
+                    Concernant mon approche, j'ai veillé à instaurer un contact simple, clair et respectueux. Je commençais par me présenter brièvement et expliquer l'objectif du questionnaire, afin de rassurer les personnes sur l'usage des données recueillies. J'ai privilégié une attitude ouverte et bienveillante, en m'assurant de ne jamais forcer la participation. Lorsque c'était possible, j'essayais également d'adapter mon ton et ma manière de poser les questions à l'interlocuteur, pour rendre l'échange plus naturel.</p>
+                    <p>Grâce à cette méthode, j'ai pu recueillir un nombre suffisant de réponses tout en respectant le confort et la disponibilité des participants.</p>
+                </div>
+
+                <h4>AC13.05 | Comprendre les intérêts de la data visualisation et de l'infographie</h4>
+                <p>J'ai intégré des images pour rendre les résultats plus lisibles. C'est un aspect que je trouve parlant et que j'ai envie de développer, notamment en choisissant des représentations plus adaptées aux types de données.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae106-frequence.png" alt="Illustration Fréquence" loading="lazy" style="max-width:560px">
+
+                <h4>AC13.06 | Mesurer l'importance d'une expression précise et nuancée dans la communication en français et dans une langue étrangère des résultats</h4>
+                <p>Que ce soit dans le rapport écrit ou lors de la restitution orale, j'ai travaillé à m'exprimer clairement, sans jargon inutile mais avec la précision qu'exige un travail statistique.</p>
+                <h5>Trace d'apprentissage</h5>
+                <img class="trace-img" src="images/sae106-reponses.png" alt="Tableau des réponses au questionnaire" loading="lazy">
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ m'a ouvert les yeux sur la dimension communication du métier de data analyst. Produire des données ne vaut rien si on ne sait pas les présenter. J'ai progressé sur ce point, même si je sens qu'il me reste encore du chemin sur la datavisualisation et la précision à l'oral.</p>
+                <h4>Mes commentaires sur le travail en équipe</h4>
+                <p>J'ai pris part activement aux différentes étapes. J'ai notamment contribué à la construction du questionnaire et à la rédaction du rapport. La dynamique de groupe était bonne, les échanges constructifs.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>Améliorer la qualité de mes supports visuels et travailler ma capacité à synthétiser des résultats complexes en quelques messages clairs et continuer à développer ma capacité à travailler en équipe sur des projets data, et mieux anticiper les étapes de relecture collective pour éviter les incohérences de dernière minute.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SAÉ 2.03 ===================== -->
+    <div class="modal" id="sae203">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="badge">SAÉ 2.03</span>
+                <h2>Régression sur données réelles</h2>
+                <div class="tags"><span class="tag-s">R</span><span class="tag-s">ggplot2</span><span class="tag-s">Régression linéaire</span><span class="tag-s">Modélisation</span></div>
+                <button class="modal-close" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Ce que j'ai pensé de la SAÉ</h4>
+                <p>Cette SAÉ m'a mis face à des objectifs concrets de statisticien : mesurer et expliciter les liens existant entre les variables d'un jeu de données réelles. Il a fallu s'approprier le contexte biologique de l'étude pour préparer au mieux le tableau individus/variables, puis intégrer un logiciel de programmation pour modéliser une régression linéaire simple. J'ai compris l'importance cruciale de la visualisation graphique pour déceler des anomalies.</p>
+
+                <h4>Grille d'auto-évaluation des apprentissages critiques</h4>
+                <div class="table-wrap"><table class="grille">
+                    <tr><th>Compétence</th><th class="lvl">Insuffisant</th><th class="lvl">Bien</th><th class="lvl">Très bien</th><th class="lvl">Excellent</th></tr>
+                    <tr><td>AC12.03 | Comprendre l'intérêt des synthèses numériques et graphiques pour décrire une variable statistique</td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td><td class="lvl"></td></tr>
+                    <tr><td>AC12.04 | Comprendre l'intérêt des synthèses numériques et graphiques pour mettre en évidence des liaisons entre variables.</td><td class="lvl"></td><td class="lvl"></td><td class="lvl x">X</td><td class="lvl"></td></tr>
+                </table></div>
+
+                <h3>Réalisation de la SAÉ</h3>
+
+                <h4>AC12.03 | Comprendre l'intérêt des synthèses numériques et graphiques pour décrire une variable statistique</h4>
+                <p>L'enjeu de cet apprentissage était d'adopter le bon réflexe dès la réception du fichier de données : résumer chaque variable pour savoir exactement sur quoi on travaille. Dans cette SAÉ, j'ai rapidement vu que les chiffres et les graphiques se complètent. Les indicateurs numériques, comme le résumé statistique global, m'ont donné les bases indispensables, notamment les valeurs minimales, maximales et la moyenne de l'échantillon. C'est l'étape obligatoire pour fixer les ordres de grandeur. Mais c'est le passage au graphique qui permet de valider ces chiffres : le visuel montre tout de suite comment se répartissent les données et permet de repérer des anomalies ou des écarts qu'une simple moyenne ne suffit pas à révéler.</p>
+                <h5>Trace d'apprentissage — Importation du fichier personnel</h5>
+<pre class="trace-code">don &lt;- read.csv(file = "NAMOUS_IBRAHIM.csv",
+                sep = ",",
+                dec = ".",
+                stringsAsFactors = TRUE)</pre>
+                <h5>Vérification rapide des données</h5>
+<pre class="trace-code">head(don)</pre>
+<pre class="trace-out">##     Id Viscera.weight Dim1 Dim3 Sex
+## 1   16           26.6  100  110   M
+## 2  198           52.7  128  204   M
+## 3  512           25.3   91   83   F
+## 4 2055           17.0   93   74   M
+## 5 1883           32.9  111  115   M
+## 6 3897           77.2  152  276   M</pre>
+<pre class="trace-code">summary(don)</pre>
+<pre class="trace-out">##        Id       Viscera.weight        Dim1            Dim3        Sex
+## Min.   :  16   Min.   :  0.60   Min.   : 33.0   Min.   :  12.0   F:32
+## 1st Qu.:1206   1st Qu.: 17.45   1st Qu.: 92.0   1st Qu.:  78.5   I:23
+## Median :1850   Median : 32.70   Median :105.0   Median : 119.0   M:40
+## Mean   :1996   Mean   : 35.54   Mean   :104.3   Mean   : 144.0
+## 3rd Qu.:2808   3rd Qu.: 53.35   3rd Qu.:123.5   3rd Qu.: 179.5
+## Max.   :4131   Max.   :112.80   Max.   :152.0   Max.   :1045.0</pre>
+<pre class="trace-code">cat("Nombre d'individus : ", nrow(don))</pre>
+<pre class="trace-out">## Nombre d'individus :  95</pre>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-out">## `geom_smooth()` using formula = 'y ~ x'</pre>
+                <img class="trace-img" src="images/sae203-mutants.png" alt="Impact des mutants sur le modèle Dim3" loading="lazy">
+
+                <h4>AC12.04 | Comprendre l'intérêt des synthèses numériques et graphiques pour mettre en évidence des liaisons entre variables</h4>
+                <p>L'objectif de cet apprentissage était de savoir croiser deux variables pour analyser la manière dont elles s'influencent mutuellement. Dans cette SAÉ, l'enjeu était de modéliser la masse des viscères en fonction des dimensions des spécimens. Pour y parvenir, j'ai appris à combiner l'approche graphique et l'approche numérique. Le tracé des premiers nuages de points avec <code>ggplot()</code> a été indispensable pour observer la forme de la relation et orienter mes choix, comme l'application d'une transformation logarithmique lorsque la liaison n'était pas purement linéaire. C'est ensuite le calcul des indicateurs numériques, notamment à travers les résumés des modèles de régression (<code>lm()</code>), qui est venu valider scientifiquement ces observations visuelles en me fournissant les coefficients de pente et les mesures de précision. Cette démarche m'a démontré qu'on ne peut pas valider solidement la liaison entre deux variables sans coupler la perception globale du graphique à la rigueur des indicateurs chiffrés.</p>
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code"># On trace le nuage de points pour voir la forme de la relation
+ggplot(don, aes(x = Dim1, y = Viscera.weight)) +
+  geom_point(aes(color = Sex)) + # On colore par sexe pour l'analyse visuelle
+  geom_smooth(method = "lm", se = FALSE, color = "blue") + # On ajoute la droite de régression en bleu pour tester le modèle linéaire
+  ggtitle("Estimation de la masse des viscères par Dim1 (Linéaire)") +
+  xlab("Dimension 1 (mm)") + ylab("Masse des viscères (g)")</pre>
+<pre class="trace-out">## `geom_smooth()` using formula = 'y ~ x'</pre>
+                <img class="trace-img" src="images/sae203-dim1.png" alt="Estimation de la masse des viscères par Dim1 (Linéaire)" loading="lazy">
+                <h5>Trace d'apprentissage</h5>
+<pre class="trace-code">intercept &lt;- coef(res1)[1]
+pente &lt;- coef(res1)[2]
+
+# Estimation pour un spécimen de 100 mm
+poids_estime_100 &lt;- 10^(intercept + pente * log10(100))
+
+cat("Estimation de la masse pour Dim1 = 100 mm :", poids_estime_100, "g\n")</pre>
+<pre class="trace-out">## Estimation de la masse pour Dim1 = 100 mm : 26.44778 g</pre>
+
+                <h3>Mon bilan de la SAÉ</h3>
+                <h4>Synthèse de mes réflexions, de ce que je retire du projet</h4>
+                <p>Cette SAÉ m'a offert une première vraie confrontation avec la modélisation statistique sur le terrain. Le fait de travailler sur des données réelles, avec leurs imperfections comme les individus mutants, a rendu l'exercice bien plus parlant qu'un simple exercice théorique. Ce que je retiens surtout, c'est que la complémentarité entre les résumés numériques et l'analyse graphique est la base de tout : sans ce double regard, on ne peut ni nettoyer efficacement son fichier, ni construire un modèle de prédiction fiable.</p>
+                <h4>Mes objectifs pour le prochain semestre</h4>
+                <p>Je veux être capable de construire des modèles de régression avec des transformations de variables complexes sans avoir besoin de relire mes cours à chaque fois. L'objectif concret : sur la prochaine SAÉ impliquant de la modélisation, comprendre la forme de la liaison entre les variables en moins de 30 minutes et choisir directement la bonne transformation (linéaire, logarithmique, etc.), pour être opérationnel immédiatement sur le code sans avoir à revoir sur la méthode.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Me <span class="grad">contacter</span></h2>
+            <p class="section-sub reveal" style="margin: 0 auto 30px;">Vous proposez un stage dans la data ou l'IA ? Je serais ravi d'échanger avec vous.</p>
+            <div class="btns reveal">
+                <a href="mailto:namousi@laposte.net" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> namousi@laposte.net</a>
+                <a href="tel:+33778804096" class="btn btn-ghost"><i class="fa-solid fa-phone"></i> 07 78 80 40 96</a>
+                <a href="https://www.linkedin.com/in/ibrahim-namous-a151483a0" target="_blank" class="btn btn-ghost"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="socials">
+            <a href="https://www.linkedin.com/in/ibrahim-namous-a151483a0" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:namousi@laposte.net" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        © 2026 Ibrahim NAMOUS. BUT Science des Données — Parcours VCOD.
+    </footer>
+
+    <script>
+        // Menu mobile
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+        // Animation d'apparition au scroll
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Ouverture / fermeture des fenêtres des SAÉ
+        function openModal(id) {
+            const m = document.getElementById(id);
+            if (!m) return;
+            m.classList.add('open');
+            m.scrollTop = 0;
+            document.body.classList.add('no-scroll');
+        }
+        function closeModals() {
+            document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
+            document.body.classList.remove('no-scroll');
+        }
+        document.querySelectorAll('[data-open]').forEach(card => {
+            card.addEventListener('click', () => openModal(card.dataset.open));
+        });
+        document.querySelectorAll('.modal-close').forEach(b => b.addEventListener('click', closeModals));
+        document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModals(); }));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
+    </script>
+</body>
+</html>
